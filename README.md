@@ -15,7 +15,7 @@ An API layer to authenticate users, sellers and admins.
 
 Clone the Git repository `auth`
 
-`https://github.com/KoushikMallik-developer/auth-v2.git`
+`https://github.com/KoushikMallik-developer/auth-v1.git`
 
 Create your virtual-environment for `auth` outside of the project root directory.
 
@@ -65,7 +65,3 @@ Run the server.
 ```bash
   python .\manage.py runserver 8080
 ```
-
-## 🔗 Links
-[Staging](https://auth-stg.onrender.com/)\
-[Production](https://auth-shoppixa.onrender.com/)
