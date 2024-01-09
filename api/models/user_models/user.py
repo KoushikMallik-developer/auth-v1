@@ -19,7 +19,11 @@ class ECOMUser(AbstractUser):
 
     @staticmethod
     def authenticate_user(request_data: SignInRequestType) -> dict:
-        if request_data.email and request_data.password:
+        if (
+            request_data.email
+            and request_data.password
+            and len(request_data.password) >= 6
+        ):
             user_exists = (
                 True
                 if ECOMUser.objects.filter(email=request_data.email).count() > 0
@@ -28,11 +32,11 @@ class ECOMUser(AbstractUser):
             if user_exists:
                 user = ECOMUser.objects.get(email=request_data.email)
                 if user and user.get_is_regular:
-                    if user.is_active:
-                        if (
-                            EncryptionServices().decrypt(user.password)
-                            == request_data.password
-                        ):
+                    if (
+                        EncryptionServices().decrypt(user.password)
+                        == request_data.password
+                    ):
+                        if user.is_active:
                             token = TokenGenerator().get_tokens_for_user(
                                 ExportECOMUser(**user.model_to_dict())
                             )
@@ -41,15 +45,15 @@ class ECOMUser(AbstractUser):
                                 "errorMessage": None,
                             }
                         else:
-                            raise UserAuthenticationFailedError()
+                            raise UserNotVerifiedError()
                     else:
-                        raise UserNotVerifiedError()
+                        raise UserAuthenticationFailedError()
                 else:
                     raise UserNotFoundError()
             else:
                 raise UserNotFoundError()
         else:
-            raise ValueError("Email and password are not in correct format.")
+            raise ValueError("Email or password is invalid.")
 
     @staticmethod
     def authenticate_seller(request_data: SignInRequestType) -> dict:
