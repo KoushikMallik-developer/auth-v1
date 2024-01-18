@@ -6,7 +6,7 @@
 
 
 
-An API layer to authenticate users, sellers and admins.
+An API layer to authenticate users for Split It Application.
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
