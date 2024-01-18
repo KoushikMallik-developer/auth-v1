@@ -93,7 +93,7 @@ class SendOTPView(APIView):
                         if response == "OK":
                             return Response(
                                 data={
-                                    "message": DEFAULT_VERIFICATION_MESSAGE,
+                                    "successMessage": DEFAULT_VERIFICATION_MESSAGE,
                                     "errorMessage": None,
                                 },
                                 status=status.HTTP_200_OK,
